@@ -36,6 +36,37 @@ sudo apt-get install python3.8
 sudo apt-get install python-is-python3
 ```
 # 5. OpenCV
+#### Presiquisites
+
+```
+sudo apt update && sudo apt install -y \
+cmake \
+g++ \
+pkg-config \
+python3-dev \
+python3-numpy \
+libavcodec-dev \
+libavformat-dev \
+libswscale-dev \
+libgstreamer1.0-dev \
+libgstreamer-plugins-base1.0-dev \
+libgtk-3-dev \
+libpng-dev \
+libjpeg-dev \
+libopenexr-dev \
+libtiff-dev \
+libwebp-dev \
+libtbb2 \
+libtbb-dev \
+libdc1394-22-dev \
+libv4l-dev \
+libxvidcore-dev \
+libx264-dev \
+libatlas-base-dev \
+gfortran \
+libeigen3-dev
+```
+
 #### Build C++ Lib
 ```
 wget -O opencv.zip https://github.com/opencv/opencv/archive/3.4.2.zip  
@@ -48,7 +79,26 @@ mv opencv_contrib-3.4.2 opencv_contrib
 cd opencv
 mkdir build && cd build
 
-cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_ENABLE_NONFREE=ON -D CUDA_NVCC_FLAGS=--expt-relaxed-constexpr -D   OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules ..
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+-D CMAKE_INSTALL_PREFIX=/usr/local \
+-D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-${version}/modules \
+-D OPENCV_GENERATE_PKGCONFIG=ON \
+-D BUILD_TESTS=OFF \
+-D BUILD_PERF_TESTS=OFF \
+-D BUILD_EXAMPLES=OFF \
+-D WITH_GSTREAMER=ON \
+-D WITH_LIBV4L=ON \
+-D WITH_TBB=ON \
+-D WITH_IPP=ON \
+-D BUILD_opencv_python3=OFF \
+-D BUILD_opencv_python2=OFF \
+-D BUILD_opencv_java=OFF \
+-D INSTALL_C_EXAMPLES=OFF \
+-D INSTALL_PYTHON_EXAMPLES=OFF \
+-D BUILD_opencv_apps=OFF \
+-D OPENCV_ENABLE_NONFREE=ON \ 
+-D ENABLE_FAST_MATH=1 ..
+
 
 sudo make install  
 sudo ldconfig
