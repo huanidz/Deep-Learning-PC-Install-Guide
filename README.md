@@ -59,6 +59,8 @@ libwebp-dev \
 libtbb2 \
 libtbb-dev \
 libdc1394-22-dev \
+libfreetype-dev \
+libharfbuzz-dev \
 libv4l-dev \
 libxvidcore-dev \
 libx264-dev \
@@ -69,19 +71,19 @@ libeigen3-dev
 
 #### Build C++ Lib
 ```
-wget -O opencv.zip https://github.com/opencv/opencv/archive/3.4.2.zip  
-wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/3.4.2.zip  
+wget -O opencv.zip https://github.com/opencv/opencv/archive/4.6.0.zip  
+wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.6.0.zip  
 unzip opencv.zip  
 unzip opencv_contrib.zip  
-mv opencv-3.4.2 opencv  
-mv opencv_contrib-3.4.2 opencv_contrib
+mv opencv-4.6.0 opencv  
+mv opencv_contrib-4.6.0 opencv_contrib
 
 cd opencv
 mkdir build && cd build
 
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D CMAKE_INSTALL_PREFIX=/usr/local \
--D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-${version}/modules \
+-D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
 -D OPENCV_GENERATE_PKGCONFIG=ON \
 -D BUILD_TESTS=OFF \
 -D BUILD_PERF_TESTS=OFF \
@@ -96,9 +98,10 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D INSTALL_C_EXAMPLES=OFF \
 -D INSTALL_PYTHON_EXAMPLES=OFF \
 -D BUILD_opencv_apps=OFF \
--D OPENCV_ENABLE_NONFREE=ON \ 
+-D OPENCV_ENABLE_NONFREE=ON \
 -D ENABLE_FAST_MATH=1 ..
 
+make -j 4
 
 sudo make install  
 sudo ldconfig
@@ -111,7 +114,7 @@ python -m pip install opencv-python
 Download latest from [LINK](https://www.boost.org/users/download/)
 Extract then:
 ```
-./bootstrap
-./b2 install
+./bootstrap --prefix=/usr/
+sudo ./b2 install
 ```
 
